@@ -174,8 +174,13 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
+      return str[i];
+    }
+  }
+  return null;
 }
 
 /**
@@ -274,8 +279,16 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+
+function getDigitalRoot(num) {
+  if (num < 10) {
+    return num;
+  }
+  return getDigitalRoot(
+    String(num)
+      .split('')
+      .reduce((e, b) => Number.parseInt(e, 0) + Number.parseInt(b, 0)),
+  );
 }
 
 /**
@@ -299,8 +312,13 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const brackets = /\(\)|\[\]|{}|<>/;
+  let resultStr = str;
+  while (brackets.test(resultStr)) {
+    resultStr = resultStr.replace(brackets, '');
+  }
+  return !resultStr;
 }
 
 /**
