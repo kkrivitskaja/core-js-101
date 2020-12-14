@@ -201,8 +201,17 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const a = width - 2;
+  const b = height - 2;
+  const upLine = '─';
+  const underLine = '─';
+  const med = ' ';
+
+  const ab = `┌${upLine.repeat(a)}┐\n`;
+  const median = `│${med.repeat(a)}│\n`.repeat(b);
+  const cd = `└${underLine.repeat(a)}┘\n`;
+  return ab + median + cd;
 }
 
 /**
