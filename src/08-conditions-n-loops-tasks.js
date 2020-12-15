@@ -159,8 +159,9 @@ function doRectanglesOverlap(rect1, rect2) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const { center } = circle;
+  return Math.hypot(center.x - point.x, center.y - point.y) < circle.radius;
 }
 
 /**
@@ -205,8 +206,11 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const mathInterval = a > b ? `${b}, ${a}` : `${a}, ${b}`;
+  const start = isStartIncluded ? '[' : '(';
+  const end = isEndIncluded ? ']' : ')';
+  return `${start}${mathInterval}${end}`;
 }
 
 /**
@@ -379,8 +383,23 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const a = [];
+
+  for (let i = 0; i < m1.length; i += 1) {
+    const b = [];
+    for (let z = 0; z < m2[0].length; z += 1) {
+      let cont = 0;
+      for (let j = 0; j < m1[0].length; j += 1) {
+        cont += m1[i][j] * m2[j][z];
+      }
+
+      b.push(cont);
+    }
+
+    a.push(b);
+  }
+  return a;
 }
 
 /**

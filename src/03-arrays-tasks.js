@@ -314,8 +314,20 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const dict = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
+  return arr.sort((x, y) => dict[x] - dict[y]);
 }
 
 /**
@@ -416,8 +428,24 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((firstValue, secondValue) => {
+    if (firstValue.country > secondValue.country) {
+      return 1;
+    }
+    if (firstValue.country < secondValue.country) {
+      return -1;
+    }
+    if (firstValue.city > secondValue.city) {
+      return 1;
+    }
+
+    if (firstValue.city < secondValue.city) {
+      return -1;
+    }
+
+    return 0;
+  });
 }
 
 /**
@@ -438,8 +466,12 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array(n)
+    .fill(0)
+    .map((a, i) => Array(n)
+      .fill(0)
+      .map((b, j) => 1 - Math.min(Math.abs(i - j), 1)));
 }
 
 /**
@@ -513,8 +545,19 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const MultiMap = new Map();
+  array.map((e) => {
+    const a = keySelector(e);
+    const b = valueSelector(e);
+    const ifHasKey = MultiMap.has(a);
+    if (!ifHasKey) {
+      MultiMap.set(a, []);
+    }
+    MultiMap.get(a).push(b);
+    return 0;
+  });
+  return MultiMap;
 }
 
 /**
@@ -546,8 +589,11 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce(
+    (firstValue, secondValue) => firstValue[secondValue],
+    arr,
+  );
 }
 
 /**
@@ -568,8 +614,14 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const top = arr.slice(0, Math.round((arr.length - 1) / 2));
+  const bottom = arr.slice(Math.round(arr.length / 2), arr.length);
+  const midl = arr.slice(
+    Math.round((arr.length - 1) / 2),
+    Math.round(arr.length / 2),
+  );
+  return [].concat(bottom, midl, top);
 }
 
 module.exports = {
